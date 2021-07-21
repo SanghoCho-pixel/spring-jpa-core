@@ -8,7 +8,12 @@ import java.util.List;
 
 @Entity
 @Data
-public class Item {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "DTYPE")
+public abstract class Item extends BaseEntity {
+
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();
 
     @Id
     @GeneratedValue
@@ -19,7 +24,6 @@ public class Item {
     private int price;
     private int stockQuantity;
 
-    @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();
+
 }
 
